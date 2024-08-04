@@ -2,7 +2,7 @@
 name: Deploy to AWS CodeDeploy
 
 on:
-    workflow_dispatch: ######################
+    workflow_dispatch: ####
     push:
       branches: [ "stage" ]
     pull_request:
