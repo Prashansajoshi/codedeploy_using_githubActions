@@ -52,8 +52,12 @@ jobs:
           run: terraform plan
           working-directory: terraform
     
-        - name: Terraform Apply
-          run: terraform apply -auto-approve
+        # - name: Terraform Apply
+        #   run: terraform apply -auto-approve
+        #   working-directory: terraform 
+
+        - name: Terraform Destroy
+          run: terraform destroy -auto-approve
           working-directory: terraform 
     
 
@@ -99,4 +103,3 @@ jobs:
         #       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         #       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         #       AWS_REGION: ${{ secrets.AWS_REGION }}
-
