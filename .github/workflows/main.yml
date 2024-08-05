@@ -2,7 +2,7 @@
 name: Deploy to AWS CodeDeploy
 
 on:
-    workflow_dispatch:  ############
+    workflow_dispatch:  
     push:
       branches: [ "stage" ]
     pull_request:
@@ -52,13 +52,13 @@ jobs:
           run: terraform plan
           working-directory: terraform
     
-        - name: Terraform Apply
-          run: terraform apply -auto-approve
-          working-directory: terraform 
-
-        # - name: Terraform Destroy
-        #   run: terraform destroy -auto-approve
+        # - name: Terraform Apply
+        #   run: terraform apply -auto-approve
         #   working-directory: terraform 
+
+        - name: Terraform Destroy
+          run: terraform destroy -auto-approve
+          working-directory: terraform 
     
 
 
@@ -89,17 +89,18 @@ jobs:
         - name: Zip application
           run: zip -r deploy.zip . -x "*.git*"
 
-        - name: Deploy to AWS CodeDeploy
-          uses: aws-actions/aws-code-deploy-action@v2
-          with:
-            application-name: codedeploy_using_cicd
-            deployment-group: nodejs
-            deployment-config-name: CodeDeployDefault.AllAtOnce
-            revision-type: S3
-            s3-bucket: prashansa-bucket-cicd
-            s3-key: deploy.zip
-          env:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-            aws-region: us-east-1
+        # - name: Deploy to AWS CodeDeploy
+        #   uses: aws-actions/aws-code-deploy-action@v2
+        #   with:
+        #     application-name: codedeploy_using_cicd
+        #     deployment-group: nodejs
+        #     deployment-config-name: CodeDeployDefault.AllAtOnce
+        #     revision-type: S3
+        #     s3-bucket: prashansa-bucket-cicd
+        #     s3-key: deploy.zip
+        #   env:
+        #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #     aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        #     aws-region: us-east-1
+
